@@ -4,28 +4,34 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"net/http"
-	"time"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/lielalmog/be-file-streaming/database"
 )
 
 const addr = ":8080"
 
-var server *http.Server
+var app *fiber.App
 
 func Serve() {
-	r := newRouter()
+	//  set fiber port to 8080
 
-	server = &http.Server{
-		Addr:              addr,
-		Handler:           r,
-		ReadHeaderTimeout: 3 * time.Second,
-	}
+	app = fiber.New()
+
+	setupRouter(app)
+
+	// // fiber to http server
+	// r.Server()
+
+	// server = &http.Server{
+	// 	Addr:              addr,
+	// 	Handler:           r.Server(),
+	// 	ReadHeaderTimeout: 3 * time.Second,
+	// }
 
 	fmt.Println("Server strating on port", addr)
 
-	if err := server.ListenAndServe(); err != nil {
+	if err := app.Listen(addr); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
 }
@@ -33,7 +39,7 @@ func Serve() {
 func Shutdown(ctx context.Context) error {
 	database.GetDB().Close()
 
-	err := server.Shutdown(ctx)
+	err := app.Shutdown()
 
 	if err != nil {
 		return err

@@ -1,19 +1,13 @@
 package server
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 )
 
-func newRouter() *gin.Engine {
-	r := gin.Default()
-
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
+func setupRouter(app *fiber.App) {
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"message": "Hello World!",
 		})
 	})
-
-	return r
 }

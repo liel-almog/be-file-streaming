@@ -17,7 +17,7 @@ var (
 	initDBOnce sync.Once
 )
 
-func Init() {
+func newDB() {
 	initDBOnce.Do(func() {
 		pool, err := pgxpool.New(context.Background(), os.Getenv("DATABASE_URL"))
 		if err != nil {
@@ -36,7 +36,7 @@ func (p *PostgreSQLpgx) Close() {
 
 func GetDB() *PostgreSQLpgx {
 	if db == nil {
-		Init()
+		newDB()
 	}
 
 	return db

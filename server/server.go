@@ -14,20 +14,9 @@ const addr = ":8080"
 var app *fiber.App
 
 func Serve() {
-	//  set fiber port to 8080
-
 	app = fiber.New()
 
 	setupRouter(app)
-
-	// // fiber to http server
-	// r.Server()
-
-	// server = &http.Server{
-	// 	Addr:              addr,
-	// 	Handler:           r.Server(),
-	// 	ReadHeaderTimeout: 3 * time.Second,
-	// }
 
 	fmt.Println("Server strating on port", addr)
 

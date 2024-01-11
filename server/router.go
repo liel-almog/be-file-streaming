@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/lielalmog/be-file-streaming/routes"
 )
 
 func setupRouter(app *fiber.App) {
@@ -10,4 +11,7 @@ func setupRouter(app *fiber.App) {
 			"message": "Hello World!",
 		})
 	})
+
+	api := app.Group("/api")
+	routes.NewUploadRouter(api)
 }

@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
-	"github.com/lielalmog/be-file-streaming/database"
 	"github.com/lielalmog/be-file-streaming/server"
 )
 
@@ -21,7 +20,6 @@ func main() {
 	}
 
 	// We initialize the database at the beginning of our program
-	database.Init()
 	go server.Serve()
 
 	// Listen for the interrupt signal.

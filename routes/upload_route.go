@@ -10,5 +10,6 @@ func NewUploadRouter(app fiber.Router) {
 	contoller := controllers.GetUploadController()
 
 	group.Post("/chunk/start", contoller.StartUpload)
+	group.Post("/chunk/complete/:id", contoller.CompleteUpload)
 	group.Post("/chunk/:id/:chunkIndex", contoller.UploadChunk)
 }
